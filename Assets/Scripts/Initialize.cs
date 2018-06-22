@@ -3,26 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Initialize : MonoBehaviour {
 
     #region Fields
 
-    [Header("Path to Room Prefab")]
     private static readonly string path_Prefab_Room = "Prefabs/Room";
-
-    [Header("Path to Prefab directory")]
     private static readonly string path_Prefab = "Prefabs";
 
     [Header("Size Settings")]
-    [Tooltip("Boost to Room size, come from User inputs")]
+    [Tooltip("Change Room size, come from User inputs")]
     [SerializeField] private Vector3 size = new Vector3(2, 1, 2);
+
+    [Header("Level Settings")]
+    [Tooltip("Main Menu Scene name")]
+    [SerializeField] private string levelName;
 
     #endregion
 
     #region Referencees
 
     private GameObject Prefab_Room;
+    private LevelManager levelManager;
 
     #endregion
 
@@ -33,6 +36,7 @@ public class Initialize : MonoBehaviour {
         GetSize();
         InstantiateRoom();
         InstantiateStartObject();
+      //  SetupButton();
     }
 
     private void Start()
@@ -42,12 +46,11 @@ public class Initialize : MonoBehaviour {
 
     private void Update()
     {
-
     }
 
     #endregion
 
-    #region New
+    #region Object Instantiation
 
     private void InstantiateRoom()
     {
@@ -94,4 +97,19 @@ public class Initialize : MonoBehaviour {
     }
 
     #endregion
+
+    //#region Button setup
+
+    //public void SetupButton()
+    //{
+    //    var button = FindObjectOfType<Button>();
+    //    button.onClick.AddListener(this.ButtonClicked);
+    //}
+
+    //public void ButtonClicked()
+    //{
+    //    levelManager.LoadLevel(levelName);
+    //}
+
+    //#endregion
 }
