@@ -7,11 +7,17 @@ public class CubePlacer : MonoBehaviour
     public List<Material> Materials;
     private List<string> materials_Names = new List<string>();
 
+    private float width;
+    private float length;
+
     private Grid grid;
 
     private void Awake()
     {
         grid = FindObjectOfType<Grid>();
+
+        width = PlayerPrefs.GetFloat("Width");
+        length = PlayerPrefs.GetFloat("Length");
     }
 
     private void Start()
@@ -45,43 +51,72 @@ public class CubePlacer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            RaycastHit hitInfo;
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            ChangeTexture();
+        }
+    }
 
-            if (Physics.Raycast(ray, out hitInfo))
+    private void ChangeTexture()
+    {
+        RaycastHit hitInfo;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            var material = hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material;
+            var index = -1;
+            Vector2 scale;
+
+            for (int i = 0; i < materials_Names.Count; i++)
             {
-                var temp = hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material.name;
-                var index  = -1;
-
-               
-
-                for (int i = 0; i < materials_Names.Count; i++)
+                var materialName = materials_Names[i] + " (Instance)";
+                if (material.name == materialName)
                 {
-                    var temp2 = materials_Names[i] + " (Instance)";
-                    if (temp == temp2)
-                    {
-                        index = i;
-
-                    }
-
-                    Debug.Log(temp + " == " + temp2);
+                    index = i;
                 }
 
-                index++;
+            }
 
-                if (index == 0)
+            if (index == -1)
+            {
+                Debug.LogWarning("Fail to find texture");
+            }
+
+
+            if (hitInfo.transform.gameObject.GetComponent<BoxCollider>())
+            {
+                scale = new Vector2(hitInfo.transform.localScale.x, hitInfo.transform.localScale.z);
+
+            }
+            else
+            {
+                Debug.Log(hitInfo.transform.localEulerAngles);
+
+                if (!(hitInfo.transform.localEulerAngles.x == 270))
                 {
-                    Debug.LogWarning("Fail to find texture");
+                    scale = new Vector2(width, length);
                 }
-
-                if ( index == materials_Names.Count)
+                else if (hitInfo.transform.localEulerAngles.y == 0 || hitInfo.transform.localEulerAngles.y == 180)
                 {
-                    hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = Materials[0];
+                    scale = new Vector2(width, 1);
                 }
                 else
                 {
-                    hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = Materials[index];
+                    scale = new Vector2(length, 1);
                 }
+            }
+
+
+            if (index == materials_Names.Count - 1)
+            {
+                hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = Materials[0];
+                hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material.mainTextureScale = scale;
+
+            }
+            else
+            {
+                hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material = Materials[index + 1];
+                hitInfo.transform.gameObject.GetComponent<MeshRenderer>().material.mainTextureScale = scale;
+
             }
         }
     }

@@ -16,10 +16,6 @@ public class Initialize : MonoBehaviour {
     [Tooltip("Change Room size, come from User inputs")]
     [SerializeField] private Vector3 size = new Vector3(2, 1, 2);
 
-    [Header("Level Settings")]
-    [Tooltip("Main Menu Scene name")]
-    [SerializeField] private string levelName;
-
     #endregion
 
     #region Referencees
@@ -36,7 +32,6 @@ public class Initialize : MonoBehaviour {
         GetSize();
         InstantiateRoom();
         InstantiateStartObject();
-        
     }
 
     private void Start()
@@ -56,10 +51,37 @@ public class Initialize : MonoBehaviour {
         {
             Prefab_Room.transform.localScale = size;
             Instantiate(Prefab_Room);
+            InstantiateRoomTextures();
         }
         else
         {
             Debug.LogError("Nebuvo surastas kambarys");
+        }
+    }
+
+    private void InstantiateRoomTextures()
+    {
+        foreach (var child in FindObjectOfType<Room>().GetComponentsInChildren<Transform>().Skip(1))
+        {
+            Vector2 scale;
+            Debug.Log(child.name);
+            Debug.Log(child.eulerAngles);
+
+
+            if (!(child.localEulerAngles.x == 270.0f))
+            {
+                scale = new Vector2(size.x, size.z);
+            }
+            else if (child.localEulerAngles.y == 0f || child.localEulerAngles.y == 180.0f)
+            {
+                scale = new Vector2(size.x, 1f);
+            }
+            else
+            {
+                scale = new Vector2(size.z, 1f);
+            }
+
+            child.gameObject.GetComponent<MeshRenderer>().material.mainTextureScale = scale;
         }
     }
 
