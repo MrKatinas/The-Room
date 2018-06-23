@@ -94,8 +94,6 @@ public class CubePlacer : MonoBehaviour
             }
             else
             {
-                Debug.Log(hitInfo.transform.localEulerAngles);
-
                 if (!(hitInfo.transform.localEulerAngles.x == 270))
                 {
                     scale = new Vector2(width, length);

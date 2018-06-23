@@ -6,14 +6,6 @@ using UnityEngine.UI;
 public class ButtonSetup : MonoBehaviour {
     #region Fields
 
-    private static readonly string path_Prefab_Room = "Prefabs/Room";
-    private static readonly string path_Prefab = "Prefabs";
-
-    [Header("Size Settings")]
-    [Tooltip("Change Room size, come from User inputs")]
-    [SerializeField]
-    private Vector3 size = new Vector3(2, 1, 2);
-
     [Header("Level Settings")]
     [Tooltip("Main Menu Scene name")]
     [SerializeField]

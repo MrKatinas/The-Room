@@ -64,9 +64,6 @@ public class Initialize : MonoBehaviour {
         foreach (var child in FindObjectOfType<Room>().GetComponentsInChildren<Transform>().Skip(1))
         {
             Vector2 scale;
-            Debug.Log(child.name);
-            Debug.Log(child.eulerAngles);
-
 
             if (!(child.localEulerAngles.x == 270.0f))
             {
