@@ -1,11 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CubePlacer : MonoBehaviour
 {
-    public List<Material> Materials;
+    [SerializeField] private List<Material> Materials;
     private List<string> materials_Names = new List<string>();
+
+    private static readonly string path_Textures = "Textures";
 
     private float width;
     private float length;
@@ -18,6 +21,8 @@ public class CubePlacer : MonoBehaviour
 
         width = PlayerPrefs.GetFloat("Width");
         length = PlayerPrefs.GetFloat("Length");
+
+        Materials = Resources.LoadAll(path_Textures, typeof(Material)).Cast<Material>().ToList();
     }
 
     private void Start()
@@ -124,7 +129,12 @@ public class CubePlacer : MonoBehaviour
     private void PlaceCubeNear(Vector3 clickPoint)
     {
         var finalPosition = grid.GetNearestPointOnGrid(clickPoint);
-        GameObject.CreatePrimitive(PrimitiveType.Cube).transform.position = finalPosition;
+
+        var temp = GameObject.CreatePrimitive(PrimitiveType.Cube).transform;
+
+        temp.position = finalPosition;
+
+        temp.gameObject.GetComponent<MeshRenderer>().material = Materials[0];
 
         //GameObject.CreatePrimitive(PrimitiveType.Sphere).transform.position = nearPoint;
     }

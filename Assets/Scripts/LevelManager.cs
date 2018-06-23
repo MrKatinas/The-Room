@@ -74,25 +74,8 @@ public class LevelManager : MonoBehaviour {
     /// </summary>
     public void Change_Level_And_Save_Data(string name)
     {
-        if (Length)
-        {
-            PlayerPrefs.SetFloat("Length", float.Parse(Length.text));
-        }
-        else
-        {
-            PlayerPrefs.SetFloat("Length", defaultLength);
-        }
-
-        if (Width)
-        {
-            PlayerPrefs.SetFloat("Width", float.Parse(Width.text));
-        }
-        else
-        {
-            PlayerPrefs.SetFloat("Width", defaultWidth);
-        }
-
-        
+        PlayerPrefs.SetFloat("Length", Length.text != String.Empty ? float.Parse(Length.text) : defaultLength);
+        PlayerPrefs.SetFloat("Width", Width.text != String.Empty ? float.Parse(Width.text) : defaultWidth);
 
         LoadLevel(name);
     }
