@@ -36,16 +36,12 @@ public class Initialize : MonoBehaviour {
         GetSize();
         InstantiateRoom();
         InstantiateStartObject();
-      //  SetupButton();
+        
     }
 
     private void Start()
     {
         Destroy(this.gameObject);
-    }
-
-    private void Update()
-    {
     }
 
     #endregion
@@ -98,18 +94,5 @@ public class Initialize : MonoBehaviour {
 
     #endregion
 
-    //#region Button setup
-
-    //public void SetupButton()
-    //{
-    //    var button = FindObjectOfType<Button>();
-    //    button.onClick.AddListener(this.ButtonClicked);
-    //}
-
-    //public void ButtonClicked()
-    //{
-    //    levelManager.LoadLevel(levelName);
-    //}
-
-    //#endregion
+   
 }
