@@ -171,7 +171,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559ad64cbc1ca1943ac9b12b5a68c6cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 2, y: 1, z: 2}
   levelName: Main Menu
 --- !u!114 &303665425
 MonoBehaviour:
@@ -318,7 +317,7 @@ GameObject:
   - component: {fileID: 724192987}
   - component: {fileID: 724192986}
   m_Layer: 5
-  m_Name: Movement
+  m_Name: Controls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -340,8 +339,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -275.1773, y: -220.56738}
-  m_SizeDelta: {x: -608.4, y: -486.6}
+  m_AnchoredPosition: {x: -275.1773, y: -213.6}
+  m_SizeDelta: {x: -608.4, y: -472.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &724192986
 MonoBehaviour:
@@ -437,7 +436,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\nWASD - Move \nE - Camera up\nQ - Camera down\nHold Shift - Boost camera
-    speed\nHold RMB - Rotate camera\nLMB - Place Cube\nF -Change texture"
+    speed\nHold RMB - Rotate camera\nLMB - Place Cube\nF -Change texture\nM - Mute/Unmute"
 --- !u!222 &724192991
 CanvasRenderer:
   m_ObjectHideFlags: 0

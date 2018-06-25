@@ -17,6 +17,8 @@ public class AudioManager : MonoBehaviour
     private AudioSource audioMovement;
     private AudioSource audioEnvironment;
 
+    [SerializeField] private float defaultSoundLevel = 0.7f;
+
     #endregion
 
     #region Properties
@@ -35,7 +37,7 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        audioBGM = AddAudio(menuMusic, true, true, 0.2f, groupMusic);
+        audioBGM = AddAudio(menuMusic, true, true, defaultSoundLevel, groupMusic);
        // audioMovement = AddAudio(name, false, false, 1f, groupSFX);
        // audioEnvironment = AddAudio(name, false, false, 0.3f, groupSFX);
 
@@ -54,6 +56,24 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         audioBGM.Play();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            if (audioBGM.isPlaying)
+            {
+                if (audioBGM.volume == 0)
+                {
+                    audioBGM.volume = defaultSoundLevel;
+                }
+                else
+                {
+                    audioBGM.volume = 0;
+                }
+            }
+        }
     }
 
     #endregion
